@@ -66,5 +66,26 @@ This repository is **private and internal**.
 It is under active development and considered critical system infrastructure.
 
 ---
+## Quick Usage (Example)
 
+```ts
+import { createSignal, signalToPositionInput, createPosition, tickPosition } from "@zoryu/trade-core";
+
+const signal = createSignal({
+  signalId: "SOL-LONG-001",
+  symbol: "SOL",
+  direction: "long",
+  entryPrice: 100,
+  stopLoss: 95,
+  tps: { tp1: 105, tp2: 110, tp3: 120 },
+  confidence: 80,
+  riskReward: 2.5
+});
+
+const input = signalToPositionInput(signal, 100);
+const position = createPosition(input);
+
+const { position: updated, closed } = tickPosition(position, 105);
+console.log(updated.status, closed);
+```
 © Zoryu Trade — core logic, not presentation.
